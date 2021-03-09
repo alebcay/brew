@@ -285,9 +285,44 @@ module Language
 
         def do_install(targets)
           targets = Array(targets)
+          targets.map!(&method(:substitute_poetry_wheel_if_needed))
+
           @formula.system @venv_root/"bin/pip", "install",
                           "-v", "--no-deps", "--no-binary", ":all:",
                           "--ignore-installed", *targets
+        end
+
+        # Generates a wheel from `poetry build` for Poetry-based targets, if
+        # needed, which can then be consumed by `pip install`.
+        #
+        # @param target [String, Pathname] the path to the target
+        # @return target [Pathname] the path to a replacement wheel target,
+        #   or the original input target if wheel generation is not necessary
+        def substitute_poetry_wheel_if_needed(target)
+          target_as_path = Pathname.new(target)
+          return target unless target_needs_poetry?(target_as_path)
+
+          glob = target_as_path/"dist/*.whl"
+          old_files = Dir.glob(glob).to_set
+          @formula.system Formula["poetry"].opt_bin/"poetry", "build", "-vvv", "--format", "wheel"
+          new_files = Dir.glob(glob).to_set
+
+          wheels = new_files - old_files
+          wheels.to_a.first
+        end
+
+        # Determines if a given target is a Poetry-based target.
+        #
+        # @param target [Pathname] the path to the target
+        def target_needs_poetry?(target)
+          return false unless target.directory?
+          return true if (target/"poetry.lock").exist?
+
+          pyproject_file = target/"pyproject.toml"
+          return false unless (target/"pyproject.toml").exist?
+
+          pyproject_contents = pyproject_file.read
+          /build-backend\s*=\s*"poetry\.(core\.)?masonry\.api"/.match? pyproject_contents
         end
       end
     end
