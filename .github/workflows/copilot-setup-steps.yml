@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
+        uses: Homebrew/actions/setup-homebrew@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
         with:
           core: true
           cask: true
@@ -25,7 +25,7 @@ jobs:
       - run: brew install-bundler-gems --groups=all
 
       # install Homebrew formulae we might need
-      - uses: Homebrew/actions/cache-homebrew-prefix@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
+      - uses: Homebrew/actions/cache-homebrew-prefix@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
         with:
           install: shellcheck shfmt gh gnu-tar subversion curl
           workflow-key: copilot-setup-steps

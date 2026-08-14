@@ -24,19 +24,19 @@ jobs:
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
-        uses: Homebrew/actions/setup-homebrew@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
+        uses: Homebrew/actions/setup-homebrew@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
         with:
           core: false
           cask: false
 
       - name: Configure Git user
-        uses: Homebrew/actions/git-user-config@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
+        uses: Homebrew/actions/git-user-config@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
         with:
           username: BrewTestBot
 
       - name: Set up commit signing
         if: github.actor != 'dependabot[bot]'
-        uses: Homebrew/actions/setup-commit-signing@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
+        uses: Homebrew/actions/setup-commit-signing@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
         with:
           signing_key: ${{ secrets.BREWTESTBOT_SSH_SIGNING_KEY }}
 
@@ -74,7 +74,7 @@ jobs:
 
       - name: Push commits
         if: steps.update.outputs.committed == 'true' && github.actor != 'dependabot[bot]'
-        uses: Homebrew/actions/git-try-push@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
+        uses: Homebrew/actions/git-try-push@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
         with:
           token: ${{ secrets.HOMEBREW_GITHUB_PUBLIC_REPO_TOKEN }}
           directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
@@ -100,7 +100,7 @@ jobs:
       issues: write
     steps:
       - name: Open, update, or close SPDX issue
-        uses: Homebrew/actions/create-or-update-issue@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
+        uses: Homebrew/actions/create-or-update-issue@b35a29a0f83ee8b8ca07b219fc8db3d7bb88ab49 # 2026.08.10.2
         with:
           title: Failed to update SPDX license data
           body: >
