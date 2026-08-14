@@ -43,10 +43,10 @@ GEM
     prism (1.9.0)
     racc (1.8.1)
     rainbow (3.1.1)
-    rbi (0.4.1)
+    rbi (0.4.3)
       prism (~> 1.0)
       rbs (>= 4.0.1)
-    rbs (4.1.2)
+    rbs (4.1.3)
       logger
       prism (>= 1.6.0)
       tsort
@@ -120,19 +120,19 @@ GEM
       rexml
       simplecov (~> 1.0)
     simpleidn (0.2.3)
-    sorbet (0.6.13386)
-      sorbet-static (= 0.6.13386)
-    sorbet-runtime (0.6.13386)
-    sorbet-static (0.6.13386-aarch64-linux)
-    sorbet-static (0.6.13386-universal-darwin)
-    sorbet-static (0.6.13386-x86_64-linux)
-    sorbet-static-and-runtime (0.6.13386)
-      sorbet (= 0.6.13386)
-      sorbet-runtime (= 0.6.13386)
-    spoom (1.8.6)
+    sorbet (0.6.13412)
+      sorbet-static (= 0.6.13412)
+    sorbet-runtime (0.6.13412)
+    sorbet-static (0.6.13412-aarch64-linux)
+    sorbet-static (0.6.13412-universal-darwin)
+    sorbet-static (0.6.13412-x86_64-linux)
+    sorbet-static-and-runtime (0.6.13412)
+      sorbet (= 0.6.13412)
+      sorbet-runtime (= 0.6.13412)
+    spoom (1.8.7)
       erubi (>= 1.10.0)
       prism (>= 0.28.0)
-      rbi (>= 0.4.1)
+      rbi (>= 0.4.2)
       rbs (>= 4.0.0.dev.5)
       rexml (>= 3.2.6)
       sorbet-static-and-runtime (>= 0.5.10187)
@@ -239,8 +239,8 @@ CHECKSUMS
   prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
-  rbi (0.4.1) sha256=66611ca331b0b47d98607a7afda12ab44e0a98297d5393d4b93b846b9786d44d
-  rbs (4.1.2) sha256=050eb1d8b508f1233bed929c0f2c7052302f7adf295230d9cb314e9024078f48
+  rbi (0.4.3) sha256=cc090ae62c3246412b992954f54077d6046c9b04f1537a4d24bfae8714503eac
+  rbs (4.1.3) sha256=0c4474a9751cdc14364bfad0b3e53678323bbdc2c31683b0445932867dbab8c4
   regexp_parser (2.12.0) sha256=35a916a1d63190ab5c9009457136ae5f3c0c7512d60291d0d1378ba18ce08ebb
   require-hooks (0.4.1) sha256=3a4cd3ed0131b9ec5c2e68f64cb0c5ba56daec6fc363d56e8eef74816c374d7d
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
@@ -270,13 +270,13 @@ CHECKSUMS
   simplecov (1.0.3) sha256=38ef0514f16ae7562f0d0f4df02610071115103d301b6de7dacbcc000082e39b
   simplecov-cobertura (4.0.0) sha256=e4fb3159b1ecea545b44f5452a8611305323e78ad23eae8aed35924d072e01ea
   simpleidn (0.2.3) sha256=08ce96f03fa1605286be22651ba0fc9c0b2d6272c9b27a260bc88be05b0d2c29
-  sorbet (0.6.13386) sha256=8f9cb0771c0843f1f2610847bf38a976716459fbec87b040ba8897414a286aa3
-  sorbet-runtime (0.6.13386) sha256=716aa0a47e75bba1167205d408d59b622db3648109854e9fd309fb901564df48
-  sorbet-static (0.6.13386-aarch64-linux) sha256=ebe41ccfbe9659d318cf6c5e28cede1069d4141bdc2f6524d4ba4d7b18440519
-  sorbet-static (0.6.13386-universal-darwin) sha256=1d3cfdfd1c57a6108b322fe5d2657da2b4021aa1fed413634762d9c44d4ffea4
-  sorbet-static (0.6.13386-x86_64-linux) sha256=29123908d23ca2bfc135c94c2da698934c74e9fbf02d5855274dc91d71071a93
-  sorbet-static-and-runtime (0.6.13386) sha256=ca4450fa2ef490fd17526eac9e0067fbf2c2b657b83637a9957135658e6b8207
-  spoom (1.8.6) sha256=b59ea53b8e258b044c08ef48ef819dd6f12aa386c47a745aa9d8e7fb1ae34a29
+  sorbet (0.6.13412) sha256=ff45f3d28d873118971fa18f1d2644a9ca3705d55b89a13926dd4f9fd3cb7b91
+  sorbet-runtime (0.6.13412) sha256=587ef79b31364b88efd3e809e1b30c72935f1793c735053094a40ff9fa70c91f
+  sorbet-static (0.6.13412-aarch64-linux) sha256=f3ffe38cdf89d5ca9f37cb2947ec1ab2714eed49d550ccd898699b4364988072
+  sorbet-static (0.6.13412-universal-darwin) sha256=3f72fc674d65d3bb38eedbe0747bca6966baf18c0829d51dcdb1a2fa9c8af0df
+  sorbet-static (0.6.13412-x86_64-linux) sha256=d38c05d72c09e10124b5ce6cb9200e8e13409cfc443052c10351ae3b8ea82138
+  sorbet-static-and-runtime (0.6.13412) sha256=ec150ed130bde46dc2976f9380df7ec1ddb2a628ae902e97eb8344bd289cbf99
+  spoom (1.8.7) sha256=81960502cdf23aa991f015988aa5dd43325e23ae4318b8e00d541299cbdb70f6
   stackprof (0.2.28) sha256=4ec2ace02f386012b40ca20ef80c030ad711831f59511da12e83b34efb0f9a04
   tapioca (0.19.2) sha256=938731b07811aee8d23871b1aee8861d464fbaf2cfffbf79a62b0c869a5120ec
   test-prof (1.6.3) sha256=027aea17612b2776069820e4209f6b446ece7ad6dc693f4aed0b742bcb3817a1
