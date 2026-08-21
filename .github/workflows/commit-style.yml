@@ -16,6 +16,6 @@ jobs:
     steps:
       - name: Check commit format
         if: github.event_name == 'pull_request'
-        uses: Homebrew/actions/check-commit-format@fd832223f9f99ebf0244dd20658680e5d4aca049 # 2026.08.03.2
+        uses: Homebrew/actions/check-commit-format@8f3d1ec8a696b3b9d9a6c3696b6c73033cab69e4 # 2026.08.14.1
         with:
           check_package_commit_format: false
