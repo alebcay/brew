@@ -663,6 +663,10 @@ class Keg
   PRINTABLE_RUN_REGEX = /[\t\x20-\x7e]{4,}/n
   private_constant :PRINTABLE_RUN_REGEX
 
+  # Cache for ELF relocation strings, keyed by [path, size, mtime].
+  @elf_relocation_strings_cache = T.let({},
+                                        T::Hash[[Pathname, Integer, Time], T.nilable(T::Array[[Integer, String]])])
+
   # Build tools leave dead prefix strings in ELF files: Meson's install-time
   # RPATH fixer overwrites the build RPATH with the shorter install RPATH
   # without clearing the rest of the old string, and patchelf moves the
@@ -672,7 +676,7 @@ class Keg
   # are therefore scanned by structure rather than as a whole: the interpreter the
   # loader uses, the dynamic strings the loader references and the contents of
   # the remaining sections. Bytes outside every section and unreferenced
-  # entries in loader-owned string tables are never candidates.
+  # entries in loader-owned string tables are deliberately excluded from relocation.
   #
   # This deliberately errs towards relocatability (design decision 11 in
   # `plans/relocatable-bottles.md`): a wrongly pinned bottle forces source
@@ -683,8 +687,28 @@ class Keg
   # not ELF, cannot name their sections or whose tables are truncated.
   sig { params(file: Pathname, string: String).returns(T.nilable(T::Array[[String, String]])) }
   def self.elf_relocation_strings(file, string)
+    all_strings = elf_all_relocation_strings(file)
+    return unless all_strings
+
+    all_strings.filter_map do |offset, match|
+      next unless match.include?(string)
+      next unless match.ascii_only?
+
+      [offset.to_s(16), match.force_encoding(Encoding::UTF_8)]
+    end
+  end
+
+  # Extracts all printable strings from an ELF file that could be relocation candidates.
+  # Results are cached by [path, size, mtime] for the duration of the command.
+  sig { params(file: Pathname).returns(T.nilable(T::Array[[Integer, String]])) }
+  def self.elf_all_relocation_strings(file)
     require "os/linux/elf"
     return unless T.cast(Pathname.new(file.to_s).extend(ELFShim), ELFShim).elf?
+
+    stat = file.stat
+    cache_key = [file, stat.size, stat.mtime]
+
+    return @elf_relocation_strings_cache[cache_key] if @elf_relocation_strings_cache.key?(cache_key)
 
     require "elftools"
     require "strscan"
@@ -731,8 +755,6 @@ class Keg
         next if string_table_range&.cover?(section_start)
 
         data = section.data
-        # Cheap pre-check before extracting every printable run.
-        next unless data.include?(string)
 
         scanner = StringScanner.new(data)
         while scanner.skip_until(PRINTABLE_RUN_REGEX)
@@ -741,11 +763,9 @@ class Keg
         end
       end
 
-      strings.filter_map do |offset, match|
-        next unless match.ascii_only?
-
-        [offset.to_s(16), match.force_encoding(Encoding::UTF_8)]
-      end
+      result = strings.uniq
+      @elf_relocation_strings_cache[cache_key] = result
+      result
     ensure
       stream.close
     end
